@@ -1,0 +1,12 @@
+version: '2'
+services:
+  mktnode:
+    image: "mktnode:latest"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../app/web:/app/web
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d
+      - ./etc/zoneinfo/Shanghai:/etc/localtime
+    network_mode: "bridge"
