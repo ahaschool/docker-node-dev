@@ -2,7 +2,7 @@
 
 自定义镜像：
 
-* [Docker hub => php-node-image](https://hub.docker.com/r/ahaschool/docker-node-dev/php-node-image/)
+* [Docker hub => php-node-image](https://cloud.docker.com/u/ahaschool/repository/docker/ahaschool/node-php)
 
 里面已经包含了开发所需的php,nodejs,nginx,yarn,npm。
 
