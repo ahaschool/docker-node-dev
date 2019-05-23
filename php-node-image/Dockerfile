@@ -101,7 +101,7 @@ RUN apt-get update \
         --with-jpeg-dir=/usr/include \
     && docker-php-ext-install gd pdo_mysql mysqli opcache intl bcmath zip mcrypt sockets \
     && docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets \
-    && apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/* \
+    && apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/*
 
 # install nginx
 RUN set -x \
