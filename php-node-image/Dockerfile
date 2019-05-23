@@ -87,7 +87,6 @@ RUN set -x \
         libzip-dev \
         libpq-dev \
         libjpeg-dev \
-        libpng12-dev \
         libfreetype6-dev \
         libicu-dev \
         libssl-dev \
