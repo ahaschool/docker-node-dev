@@ -94,9 +94,6 @@ RUN set -x \
         zlib1g-dev \
         apt-transport-https \
         ca-certificates \
-    && docker-php-ext-configure gd \
-        --enable-gd-native-ttf \
-        --with-freetype-dir=/usr/include/freetype2 \
     && docker-php-ext-install gd pdo_mysql mysqli opcache intl bcmath zip mcrypt sockets \
     && docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets \
     && apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/*
