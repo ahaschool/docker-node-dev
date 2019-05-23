@@ -74,11 +74,37 @@ LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 ENV NGINX_VERSION 1.15.8-1~stretch
 ENV NJS_VERSION   1.15.8.0.2.7-1~stretch
 
+# install ext
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends --no-install-suggests \
+        git \
+        curl \
+        gnupg1 \
+        mysql-client \
+        libmemcached-dev \
+        libz-dev \
+        libzip-dev \
+        libpq-dev \
+        libjpeg-dev \
+        libpng12-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libssl-dev \
+        libmemcached-dev \
+        zlib1g-dev \
+        apt-transport-https \
+        ca-certificates \
+    && docker-php-ext-configure gd \
+        --enable-gd-native-ttf \
+        --with-freetype-dir=/usr/include/freetype2 \
+        --with-png-dir=/usr/include \
+        --with-jpeg-dir=/usr/include \
+    && docker-php-ext-install gd pdo_mysql mysqli opcache intl bcmath zip mcrypt sockets \
+    && docker-php-ext-enable bcmath zip pdo_mysql mcrypt sockets \
+    && apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/* \
+
 # install nginx
 RUN set -x \
-	&& apt-get update \
-	&& apt-get install --no-install-recommends --no-install-suggests -y gnupg1 apt-transport-https ca-certificates \
-	&& apt-get remove --purge --auto-remove -y gnupg1 && rm -rf /var/lib/apt/lists/* \
 	&& dpkgArch="$(dpkg --print-architecture)" \
 	&& nginxPackages=" \
 		nginx=${NGINX_VERSION} \
@@ -125,6 +151,13 @@ RUN set -x \
 # add nginx logs file
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
+
+# install composer
+RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php \
+    && php composer-setup.php \
+    && php -r "unlink('composer-setup.php');" \
+    && mv composer.phar /usr/local/bin/composer \
+    && composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 # add work dir
 WORKDIR /app/web

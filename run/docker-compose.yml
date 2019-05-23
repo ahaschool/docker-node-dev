@@ -1,12 +1,12 @@
 version: '2'
 services:
   mktnode:
-    image: "mktnode:latest"
+    image: "ahaschool/node-php:latest"
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ../app/web:/app/web
+      - ~/www/web:/app/web
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
       - ./etc/zoneinfo/Shanghai:/etc/localtime
     network_mode: "bridge"
