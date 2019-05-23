@@ -75,7 +75,8 @@ ENV NGINX_VERSION 1.15.8-1~stretch
 ENV NJS_VERSION   1.15.8.0.2.7-1~stretch
 
 # install ext
-RUN apt-get update \
+RUN set -x \
+    && apt-get update \
     && apt-get install -y --no-install-recommends --no-install-suggests \
         git \
         curl \
